@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Validate Yoself!</h1>
+
+<table>
+  <form name = "create_user" method = "post" action = "/">
+    <tr>
+      <td>Full name:</td>
+      <td><input type="text" name="name"></td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td><input type="text" name="email"></td>
+    </tr>
+    <tr>
+      <td>Password:</td>
+      <td><input type="text" name="password"></td>
+    </tr>
+    <tr><td><input type="submit" value="VALIDATE"></td></tr>
+    <input type="hidden" name="long_url" value="<%= @long_url %>">
+  </form>
+</table>
+</div>

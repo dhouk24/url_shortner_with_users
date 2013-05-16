@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Welcome to Bytely</h1>
+  <p>If it's bigger than 8 bits, we'll take a byte out!</p>
+
+  <table>
+    <form name = "bytelymagic" action = "/" method="post">
+      <tr>
+      <td>Enter the bytely world: http://</td>
+      <td><input type = "text" name = "url"></td> 
+      </tr>
+      <tr><td><input type = "submit" name = "reducto"></td>
+      </tr>
+    </form>  
+  </table>
+
+  <% if !session[:user_id] %>
+  <table>
+    <form name = "user login" method = "post" action = "/">
+      <tr>
+        <td>Sign In:</td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td><input type = "text" name = "email"></td>
+      </tr>
+      <tr>
+        <td>Password: </td>
+        <td><input type = "text" name = "password"></td>
+      </tr>
+      <tr>
+        <td><input type = "submit" name = "enter" value = "ENTER"></td>
+      </tr>
+      <input type="hidden" name="long_url" value="<%= params[:url] || 0 %>">
+    </form>
+  </table>
+
+
+  <br>
+  <table>
+    <form name = "user sign up" method = "post" action = "/create_user">
+      <tr>
+        <td><input type = "submit" name = "signup" value = "Sign Up!"></td>
+        <input type="hidden" name="long_url" value="<%= params[:url] || 0 %>">
+      </tr>
+    </form>    
+  </table>
+  <% end %>
+
+  <% if params[:url] && !session[:user_id] %>
+    <p>Your original URL was:</p>
+    <p><%= "http://" + @link[:long_url] %></p>
+    <p>Your new fun size URL is:</p>
+    <p><a href="<%=@short_link%>"><%= @short_link %></a></p>
+  <% end %>
+
+  <% if (params[:url] || params[:long_url] != "0") && session[:user_id] %>
+    <% Link.where(:user_id => session[:user_id]).each do |link| %>
+    <p>Your original URL was:</p>
+    <p><%= "http://" + link[:long_url] %></p>
+    <p>Your new fun size URL is:</p>
+    <p><a href="<%=link[:short_url]%>">http://localhost:9393/<%= link[:short_url] %></a></p>
+    <% end %>
+  <% end %>
+
+</div>
